@@ -4,9 +4,10 @@ defmodule SEVOVV.Mixfile do
   def project do
     [
       app: :sevovv,
-      version: "0.1.0",
+      version: "1.1.1",
       description: "SEVOVV DIIA National Wide State Enterprise Document Bus",
       package: package(),
+      docs: docs(),
       deps: deps()
     ]
   end
@@ -25,19 +26,35 @@ defmodule SEVOVV.Mixfile do
     ]
   end
 
+  def docs do
+    [
+      main: "SEV",
+      extras: ["README.md"],
+      skip_undefined_reference_warnings_on: [:all],
+
+      # Much stricter filter + only Elixir modules
+      filter_modules: fn mod, _ ->
+        mod_str = Atom.to_string(mod)
+        (not String.starts_with?(mod_str, "Elixir.SEV")) and
+        (not String.starts_with?(mod_str, "Elixir.NPA")) and
+        (not String.starts_with?(mod_str, "Elixir.TEST."))
+      end,
+
+      # Extra safety
+      ignore_apps: [:ex_doc, :eex]
+    ]
+  end
+
   def deps do
     [
-      {:ex_doc, "~> 0.11", only: :dev},
+      {:ex_doc, "~> 0.29.0", only: :dev},
       {:jsone, "~> 1.5.1"},
-      {:schema, "~> 4.1.0"},
+      {:schema, "~> 4.1.2"},
       {:soa, "~> 0.1.7"},
       {:smtp, "~> 1.1.2"},
-      {:nitro, "7.8.0"},
       {:ecsv, "~> 1.4.2"},
-      {:bpe, "7.10.4"},
+      {:bpe, "9.9.7"},
       {:sax, "~> 1.0.0"},
-      {:form, "7.8.0"},
-      {:rocksdb, "~> 1.6.0"},
       {:n2o, "~> 8.12.1"}
     ]
   end

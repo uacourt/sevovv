@@ -1,4 +1,5 @@
 defmodule SEV.UTL do
+  @moduledoc false
   require ERP
   require BPE
 

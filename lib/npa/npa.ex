@@ -1,4 +1,5 @@
 defmodule NPA do
+  @moduledoc false
   require ERP
 
 # sev20 test environment credentials
